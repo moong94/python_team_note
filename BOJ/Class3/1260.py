@@ -9,6 +9,7 @@ def dfs(v):
         if not(visited_dfs[i]):
             dfs(i)
 
+
 def bfs(v):
     queue = deque([v])
     while queue:

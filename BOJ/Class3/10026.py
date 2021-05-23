@@ -1,45 +1,38 @@
 from collections import deque
-import sys
-
-input = sys.stdin.readline
-
-n = int(input())
 
 dy = [0,0,1,-1]
 dx = [1,-1,0,0]
 
 def bfs(x,y, array, s):
-    queue= deque()
-    queue.append((x,y))
+    queue = deque([(x,y)])
+    array[x][y] = 0
     while queue:
-        tmp = queue.popleft()
-        x, y = tmp[0], tmp[1]
-        array[x][y] = 0
+        (x,y) = queue.popleft()
         for i in range(4):
             ny = y + dy[i]
             nx = x + dx[i]
-            if array[nx][ny] == s:
+            if ny >= 0 and nx >= 0 and ny < n and nx < n and array[nx][ny] == s:
                 queue.append((nx, ny))
+                array[nx][ny] = 0
 
-
-rgb = [[0] * (n + 2) for _ in range(n + 2)]
-rb = [[0] * (n + 2) for _ in range(n + 2)]
+n = int(input())
+rgb = []
+rb = [[0] * n for _ in range(n)]
 
 answer_rgb = 0
 answer_rb = 0
 for i in range(n):
-    tmp = input()
-    k = 0
-    for j in tmp:
-        rgb[i + 1][k + 1] = j
-        if j == "G":
-            rb[i + 1][k + 1] = "R"
-        else:
-            rb[i + 1][k + 1] = j
-        k += 1
+    rgb.append(list(map(str,input())))
 
-for i in range(1, n + 1):
-    for j in range(1, n + 1):
+for i in range(n):
+    for j in range(n):
+        if rgb[i][j] == "G" or rgb[i][j] == "R":
+            rb[i][j] = 1
+        else:
+            rb[i][j] = 2
+
+for i in range(n):
+    for j in range(n):
         if rgb[i][j] != 0:
             bfs(i,j, rgb, rgb[i][j])
             answer_rgb += 1

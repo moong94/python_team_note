@@ -1,17 +1,14 @@
 import sys
 
-def fibonacci(n):
-    if n == 0:
-        return 0
-    elif n == 1:
-        return 1
-    else:
-        return fibonacci(n - 1) + fibonacci(n - 2)
-
 t = int(sys.stdin.readline())
 for _ in range(t):
     n = int(sys.stdin.readline())
+
+    fibonacci = [0,1]
+    for i in range(n):
+        fibonacci.append(fibonacci[-1] + fibonacci[-2])
+
     if n == 0:
-        print(1,0)
+        print(1, 0)
     else:
-        print(fibonacci(n - 1), fibonacci(n))
+        print(fibonacci[-3], fibonacci[-2])
