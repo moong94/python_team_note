@@ -22,8 +22,8 @@ for _ in range(t):
         print("error")
     else:
         if reverse % 2 == 0:
-            tmp = ",".join(list_x[left: -(right + 1)])
+            tmp = ",".join(list_x[left: n - right])
         else:
-            tmp = ",".join(list_x[left: -(right + 1):-1])
+            list_x = list_x[left : n - right]
+            tmp = ",".join(list_x[::-1])
         print("[" + tmp + "]")
-        print(left,-(right + 1))

@@ -30,3 +30,7 @@ def cut(x,y,n):
 cut(0,0,n)
 print(white)
 print(blue)
+
+256
+128
+64
