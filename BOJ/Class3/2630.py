@@ -9,28 +9,20 @@ white = 0
 blue = 0
 
 def cut(x,y,n):
-    global blue,white
+    global white, blue
     check = papers[x][y]
-    for i in range(x,x+n):
-        for j in range(y,y+n):
-            if check != papers[i][j]:
-                cut(x,y,n // 2)
-                cut(x,y + n // 2, n // 2)
-                cut(x + n // 2, y, n // 2)
-                cut(x + n // 2, y + n // 2, n // 2)
+    for i in range(x,x + n):
+        for j in range(y,y + n):
+            if papers[i][j] != check:
+                for a in range(2):
+                    for b in range(2):
+                        cut(x + n // 2 * a, y + n // 2 * b, n //2)
                 return
-
-    if check == 0:
-        white += 1
-        return
-    else:
+    if check == 1:
         blue += 1
-        return
-
+    elif check == 0:
+        white += 1
 cut(0,0,n)
+
 print(white)
 print(blue)
-
-256
-128
-64
