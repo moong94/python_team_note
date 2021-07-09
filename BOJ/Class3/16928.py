@@ -1,26 +1,47 @@
 from collections import deque
 
-n, m=map(int, input().split())
-k=101
-g=[*range(k)]
-dist=[-1]*k
+n, m = map(int,input().split())
 
-for i in range(n+m) :
-    x, y=map(int, input().split())
-    g[x]=y
+INF = int(1e9)
 
-q=deque()
-dist[1]=0
-q.append(1)
-while q :
-    x=q.popleft()
-    for i in range(1, 7) :
-        y=x+i
-        if(y>100) :
-            continue
-        y=g[y]
-        if(dist[y]==-1 or dist[y]>dist[x]+1) :
-            dist[y]=dist[x]+1
-            q.append(y)
+distance = [INF] * 101
+distance[1] = 0
+visited = [False] * 101
+visited[1] = True
 
-print(dist[-1])
+ladder = []
+snake = []
+
+def bfs():
+    queue = deque([1])
+    while queue:
+        now = queue.popleft()
+        for i in range(1, 7):
+            after = now + i
+            if after > 100:
+                continue
+            if visited[after]:
+                continue
+            for j in ladder:
+                if j[0] == after:
+                    after = j[1]
+            for j in snake:
+                if j[0] == after:
+                    after = j[1]
+            if not visited[after]:
+                visited[after] = True
+                distance[after] = distance[now] + 1
+                queue.append(after)
+
+
+
+for _ in range(n):
+    u, v = map(int,input().split())
+    ladder.append((u, v))
+for _ in range(m):
+    u, v = map(int,input().split())
+    snake.append((u, v))
+
+bfs()
+
+print(distance[100])
